@@ -22,3 +22,13 @@ Release Date: Feb 07, 2017
  - images 
   - bots, parts (Jake)
 
+# *Version 0.12*
+Release Date: Feb 09, 2017
+
+### Updated Components 
+- Controllers
+  - Added Assembly class (Nick)
+- View 
+  - Added assembly.php (Nick)
+
+
