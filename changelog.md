@@ -38,3 +38,13 @@ Release Date: Feb 09, 2017
 - assets
  -- images -- Added panda, umbrella (Jake)
 
+# *Version 0.13*
+Release Date: Feb 09, 2017
+
+### Updated Components 
+- Controllers
+  -- Added About class (Michael)
+- View 
+  -- Added about.php (Michael)
+
+
