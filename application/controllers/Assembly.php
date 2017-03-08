@@ -45,5 +45,4 @@ class Assembly extends Application {
         $this->data['pagebody'] = 'assemblypage';
         $this->render();
     }
-
 }

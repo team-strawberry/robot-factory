@@ -1,13 +1,15 @@
 
 #Robot-factory
 
+##Deployment address
+- https://strawberry.jlparry.com/
 
 
 ###Team name 
-#### Team-Strawberry
+- Team-Strawberry
 
 ###Project name
-#### Robot-factory   
+- Robot-factory   
 
 
 
@@ -45,3 +47,4 @@
 | Nick | Assembly page |
 | William | Home page / Navbar |
 
+strawberry.jlparry.com
