@@ -45,6 +45,9 @@ class Robotsdata extends CI_Model {
         return $idNum;
     }
     
+    public function updateHistory($data2) {
+        $this->db->insert('historydata', $data2);       
+    }
 }
 
 
