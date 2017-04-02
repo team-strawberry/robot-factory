@@ -33,7 +33,7 @@
     </div>
     <div class="col-lg-3 col-md-6">
         <div class="panel panel-success">
-            <a href = "egn"><h2>Sell bots</h2></a>  
+            <a href = "sell"><h2>Sell bots</h2></a>  
         </div>
     </div>
 </div>
