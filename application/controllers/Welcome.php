@@ -6,6 +6,7 @@ class Welcome extends Application {
 
     function __construct() {
         parent::__construct();
+		$this->load->model('robotsdata');
     }
 
     /**
@@ -23,15 +24,28 @@ class Welcome extends Application {
     public function index() {
 
         $this->data['pagebody'] = 'homepage';
-/*
+
         // build the list of authors, to pass on to our view
-        $source = $this->historydata->getAllSummary();
+        $source = $this->robotsdata->getAllBotsAsArray();
+		$partsOnHand = $this->partsdata->getAllParts();
+		$transactions = $this->historydata->getAllTransaction();
+		$bought = 0;
+		$sold = 0;
+		foreach ($transactions as $transaction)
+        {
+			if($transaction['action'] == "Sell" || $transaction['action'] == "sell"){
+				$sold+=$transaction['amount'];
+			}
+			if($transaction['action'] == "Buy" || $transaction['action'] == "buy"){
+				$bought+=$transaction['amount'];
+			}
+		}
         $info = array();
-        foreach ($source as $record) {
-            $info[] = array('numBots' => $record['numBots'], 'numParts' => $record['numParts'], 'monSpent' => $record['monSpent'], 'monEarned' => $record['monEarned']);
-        }
+       
+        $info[] = array('numBots' => count($source), 'numParts' => count($partsOnHand), 'monSpent' => $bought, 'monEarned' => $sold);
+   
         $this->data['numbers'] = $info;
-*/
+
         $this->render();
     }
 
