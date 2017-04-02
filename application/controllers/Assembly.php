@@ -70,7 +70,7 @@ class Assembly extends Application {
                 // return to view
                 echo json_encode(array("error"=>false));
                  return false;
-            }  
+            }           
         }    
     }
     
