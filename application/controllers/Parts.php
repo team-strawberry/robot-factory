@@ -167,7 +167,7 @@ class Parts extends Application
         $buy_parts = json_decode($json_parts, true);
         // create part array
         $buy_parts_to_save = $this->createPartArray($buy_parts);
-        $history_parts_to_save = $this->createHistory($buy_parts_to_save, 'Bought a box of parts ', 100);
+        $history_parts_to_save = $this->createHistory($buy_parts_to_save, 'Buy', 100);
 
         // insert parts to db
         $this->partsdata->insertParts($buy_parts_to_save);
