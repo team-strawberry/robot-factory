@@ -28,6 +28,8 @@ class History extends Application
     {
         $this->page(1);
     }
+	
+	
 
     // Show a single page of transactions
     private function showPage($histories)
