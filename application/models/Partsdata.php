@@ -81,8 +81,6 @@ class Partsdata extends CI_Model
         return $query->result_array();
     }
     
-    }
-    
     public function getParts($model, $piece) {    
         $this->db->select('*')->from('partsdata');
         $this->db->where('model', $model);
