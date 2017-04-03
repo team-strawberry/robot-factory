@@ -71,12 +71,6 @@ class Assembly extends Application
         $torsoId = $tempTorso[1];
         $legsId = $tempLegs[1];
 
-        $newRobotForInsert = array(
-            'head' => $headId,
-            'torso' => $torsoId,
-            'legs' => $legsId
-        );
-
         $newRobot = array(
             'head' => $headId,
             'torso' => $torsoId,
@@ -86,9 +80,6 @@ class Assembly extends Application
             'legsModel' => $legsModel,
         );
 
-        //create a robot
-        $this->robotsdata->createBot($newRobotForInsert);
-
         // delete the data from parts
         $this->partsdata->deletePartById($headId);
         $this->partsdata->deletePartById($torsoId);
@@ -96,11 +87,14 @@ class Assembly extends Application
 
         if ($this->input->post('assemble') == 'Assemble')
         {
+            //create a robot
+            $this->robotsdata->createBot($newRobot);
             // create history
             $assembledRobot = $this->createHistory($newRobot, 'Assemble', 0);
 
             // insert parts to history
             $this->historydata->insertPartsHistory($assembledRobot);
+            
         } else if ($this->input->post('assemble') == 'Return')
         {
 
@@ -125,8 +119,8 @@ class Assembly extends Application
             if ($responseArray[0] == 'Ok')
             {
                 // create history
-               $return_robots = $this->createHistory($newRobot, 'Return', $earned);
-               $this->historydata->insertPartsHistory($return_robots);             
+                $return_robots = $this->createHistory($newRobot, 'Return', $earned);
+                $this->historydata->insertPartsHistory($return_robots);
             }
         }
 

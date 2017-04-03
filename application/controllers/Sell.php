@@ -151,13 +151,14 @@ class Sell extends Application
         $models = '';
         
         $sequence .= $part['head'] . ' ' . $part['torso'] . ' ' . $part['legs'];
+        $models .= $part['headModel'] . ' ' . $part['torsoModel'] . ' ' . $part['legsModel'];
         
         $temp_array[] = array(
             'action' => $action,
             'amount' => $amount,
             'quantity' => $num_of_parts,
             'plant' => 'strawberry',
-            'model' => $sequence,
+            'model' => $models,
             'seq' => $sequence,
             'stamp' => date("Y-m-d H:i:s", time()),
         );
