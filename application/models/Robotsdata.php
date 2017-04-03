@@ -66,7 +66,6 @@ class Robotsdata extends CI_Model
     public function updateHistory($data2) {
         $this->db->insert('historydata', $data2);       
     }
-}
 
     public function deleteAll()
     {
