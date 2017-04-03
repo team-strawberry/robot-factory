@@ -47,7 +47,7 @@ INSERT INTO `apikeydata` (`id`, `keyvalue`) VALUES
 
 DROP TABLE IF EXISTS assembledbots;
 CREATE TABLE assembledbots (
-  `id` int(120) NOT NULL,
+  id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `head` varchar(20) NOT NULL,
   `body` varchar(20) NOT NULL,
   `legs` varchar(20) NOT NULL
