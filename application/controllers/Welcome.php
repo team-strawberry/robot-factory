@@ -36,7 +36,7 @@ class Welcome extends Application
         $sold = 0;
         foreach ($transactions as $transaction)
         {
-            if ($transaction['action'] == "Sell" || $transaction['action'] == "sell")
+            if ($transaction['action'] == "Sell" || $transaction['action'] == "sell" || $transaction['action'] == "Return" || $transaction['action'] == "return")
             {
                 $sold+=$transaction['amount'];
             }

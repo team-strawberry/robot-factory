@@ -11,7 +11,6 @@
  *
  * @author Jake
  */
-
 class Managedata extends CI_Model
 {
 
@@ -32,9 +31,17 @@ class Managedata extends CI_Model
     // update api key
     public function updateKey($apikey)
     {
-        $this->db->set('keyvalue', $apikey);
-        $this->db->where('id', 0);
-        $this->db->update('apikeydata');
+        $this->db->empty_table('apikeydata');
+        $sql = 'INSERT INTO apikeydata (id, keyvalue) VALUES(?,?);';
+        $query = $this->db->query($sql, array(0, $apikey));
+    }
+
+    // reset api key
+    public function resetKey()
+    {
+        $this->db->empty_table('apikeydata');
+        $sql = 'INSERT INTO apikeydata (id, keyvalue) VALUES(?,?);';
+        $query = $this->db->query($sql, array(0, '000000'));
     }
 
 }

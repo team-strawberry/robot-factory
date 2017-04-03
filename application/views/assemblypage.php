@@ -10,12 +10,9 @@
     <br /><br />
 
     <form method="POST" action="/Assembly/assembleBots">
-        <a id='build'>
-            <input type="submit" class="btn btn-primary" value="Assemble It"/>
-        </a> 
-        <a id='return'>
-            <input type="submit" class="btn btn-danger" value="Return Parts"/>
-        </a>         
+        <input type="submit" name="assemble" class="btn btn-primary" value="Assemble"/>
+        <input type="submit" name="assemble" class="btn btn-danger" value="Return"/>
+
 
         </br>
         </br>

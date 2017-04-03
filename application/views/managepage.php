@@ -3,8 +3,9 @@
 <div class="container-fluid">
     <!-- title of the page -->
     <h2>{pagetitle}</h2> 
-
     <br>
+    <div class="text-primary">{message}</div>
+    <br><br>
     <table class='table table-bordered'>
         <div class="col-lg-3 col-md-6">
             <div>Registration to Panda Research Centre</div>
@@ -16,7 +17,7 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
-            {message}
+
         </div>
 
         <div class="col-lg-3 col-md-6">

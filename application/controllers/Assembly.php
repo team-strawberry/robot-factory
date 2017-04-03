@@ -94,11 +94,42 @@ class Assembly extends Application
         $this->partsdata->deletePartById($torsoId);
         $this->partsdata->deletePartById($legsId);
 
-        // add to history
-        $assembledRobot = $this->createHistory($newRobot, 'Assemble', 0);
+        if ($this->input->post('assemble') == 'Assemble')
+        {
+            // create history
+            $assembledRobot = $this->createHistory($newRobot, 'Assemble', 0);
 
-        // should make a bots history fucntion later
-        $this->historydata->insertPartsHistory($assembledRobot);
+            // insert parts to history
+            $this->historydata->insertPartsHistory($assembledRobot);
+        } else if ($this->input->post('assemble') == 'Return')
+        {
+
+            $API_KEY = $this->managedata->getKey();
+
+            // check key validation
+            if ($API_KEY == '000000')
+            {
+                $this->data['pagebody'] = 'blockedpage';
+                $this->data['pagetitle'] = '<a class="text-danger">Please register first</a>';
+                $this->render();
+                return;
+            }
+
+            $response = file_get_contents("https://umbrella.jlparry.com/work/recycle/$headId/$torsoId/$legsId?key=" . $API_KEY);
+
+            $responseArray = explode(" ", $response);
+            // get money earn from PRC
+            $earned = $responseArray[1];
+
+            // if returns 'ok'
+            if ($responseArray[0] == 'Ok')
+            {
+                // create history
+               $return_robots = $this->createHistory($newRobot, 'Return', $earned);
+               $this->historydata->insertPartsHistory($return_robots);             
+            }
+        }
+
         redirect('/assembly');
     }
 
@@ -188,5 +219,6 @@ class Assembly extends Application
         $this->data['torso_parts'] = $torso_parts;
         $this->data['legs_parts'] = $legs_parts;
         $this->render();
-    }  
+    }
+
 }
