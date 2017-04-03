@@ -90,6 +90,7 @@ class Partsdata extends CI_Model
         return $query->result_array();
     }
 
+    // for the reboot function
     public function deleteAll()
     {
         $this->db->empty_table('partsdata');

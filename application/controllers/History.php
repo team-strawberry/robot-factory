@@ -28,8 +28,6 @@ class History extends Application
     {
         $this->page(1);
     }
-	
-	
 
     public function modelFilter()
     {
