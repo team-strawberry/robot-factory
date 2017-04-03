@@ -36,7 +36,7 @@ class Parts extends Application
             $this->generateTable($allParts);
         } else
         {
-            $this->data['pagetitle'] = 'Parts List - Only Allow to Worker';
+            $this->data['pagetitle'] = 'Parts List - Only Allow to Worker, Supervisor, Boss';
             $this->data['pagebody'] = 'blockedpage';
             $this->data['message'] = "<div></div>";
             $this->render();
@@ -139,10 +139,12 @@ class Parts extends Application
 
         // create part array
         $random_parts_to_save = $this->createPartArray($random_parts);
+        $history_parts_to_save = $this->createHistory($random_parts_to_save, 'Built parts', 0);
 
         // insert parts to db
         $this->partsdata->insertParts($random_parts_to_save);
-
+        $this->historydata->insertPartsHistory($history_parts_to_save);
+        
         redirect('/parts');
     }
 
@@ -163,14 +165,42 @@ class Parts extends Application
 
         // decode json
         $buy_parts = json_decode($json_parts, true);
-
         // create part array
         $buy_parts_to_save = $this->createPartArray($buy_parts);
+        $history_parts_to_save = $this->createHistory($buy_parts_to_save, 'Buy', 100);
 
         // insert parts to db
         $this->partsdata->insertParts($buy_parts_to_save);
+        $this->historydata->insertPartsHistory($history_parts_to_save);
 
         redirect('/parts');
+    }
+
+    private function createHistory($array, $action, $amount)
+    {
+        $temp_array = array();
+
+        $num_of_parts = count($array);
+
+        $sequence = '';
+        $models = '';
+        foreach ($array as $part)
+        {
+            $sequence .= $part['id'] . ' ';            
+            $models .= $part['model'] . $part['piece'] . ' ';
+        }
+        
+        $temp_array[] = array(
+            'action' => $action,
+            'amount' => $amount,            
+            'quantity' => $num_of_parts,
+            'plant' => $part['plant'],
+            'model' => $models,
+            'seq' => $sequence,
+            'stamp' => $part['stamp']
+        );
+
+        return $temp_array;
     }
 
     // create part array 
