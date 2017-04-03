@@ -48,9 +48,12 @@ INSERT INTO `apikeydata` (`id`, `keyvalue`) VALUES
 DROP TABLE IF EXISTS assembledbots;
 CREATE TABLE assembledbots (
   id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `head` varchar(20) NOT NULL,
-  `torso` varchar(20) NOT NULL,
-  `legs` varchar(20) NOT NULL
+  `head` varchar(20) NULL,
+  `torso` varchar(20) NULL,
+  `legs` varchar(20) NULL,
+  `headModel` varchar(20) NULL,
+  `torsoModel` varchar(20) NULL,
+  `legsModel` varchar(20) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
