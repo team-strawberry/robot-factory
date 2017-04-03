@@ -18,6 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Assembly extends Application {
 
     public function index() {
+        error_reporting(0);
         // Retrieves the file names for each part in the Robots model.
         $this->data['head1'] = $this->partsdata->getParts('a',1)[0]['file_name'];
         $this->data['body1'] = $this->partsdata->getParts('a',2)[0]['file_name'];
@@ -63,11 +64,14 @@ class Assembly extends Application {
                 $this->partsdata->deletePartById($headId);      
                 $this->partsdata->deletePartById($bodyId);
                 $this->partsdata->deletePartById($legsId);
+                $modelString = 
+                $data2 = array('seq'=>$idNum, 'plant'=>'strawberry', 'model'=>$head.' '.$body.' '.$legs, 'action'=>'Assembly', 'quantity'=>1, 'stamp'=>date('Y-m-d H:i:s'));
+                $this->robotsdata->updateHistory($data2);
                 // return to view
                 echo json_encode(array("error"=>false));
                  return false;
-            }
-        }
+            }           
+        }    
     }
     
 }

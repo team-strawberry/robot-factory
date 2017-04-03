@@ -20,7 +20,6 @@ function assemble() {
    var head = document.getElementById("HeadImage").alt;
    var body = document.getElementById("BodyImage").alt;
    var legs = document.getElementById("FeetImage").alt;
-
    //ajax
    //you post variables
    var fields = {
@@ -40,4 +39,5 @@ function assemble() {
         alert('successful ajax');
      }
    });
+   
 }

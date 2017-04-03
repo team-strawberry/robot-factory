@@ -62,6 +62,11 @@ class Robotsdata extends CI_Model
         $idNum = $botRowCount + 1;
         return $idNum;
     }
+    
+    public function updateHistory($data2) {
+        $this->db->insert('historydata', $data2);       
+    }
+}
 
     public function deleteAll()
     {
