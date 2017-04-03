@@ -89,5 +89,8 @@
 - Created history page (Jake)
 - Added filters, navigation, order functions on history page (Jake)
 
-### *v.025* (April 2, 2017)
+### *v.026* (April 1, 2017)
 - Added comments, reformatted code (Karan)
+
+### *v.027* (April 1, 2017)
+- Fixed assembly page, assemble function, sell function, history (Jake)

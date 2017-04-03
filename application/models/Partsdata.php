@@ -21,10 +21,19 @@ class Partsdata extends CI_Model
     }
 
     // retrieve all of the parts from db
-
     public function getAllParts()
     {
         return $this->db->get('partsdata')->result_array();
+    }
+
+    // get sorted parts by asc
+    public function getAllSortedParts()
+    {
+        $this->db->select('*');
+        $this->db->from('partsdata');
+        $this->db->order_by('model', 'asc');
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
     // retrieve a single part
@@ -58,6 +67,7 @@ class Partsdata extends CI_Model
         return $query->result_array();
     }
 
+    // get a part by id
     public function getPartById($id)
     {
         $this->db->select('*')->from('partsdata');
@@ -67,12 +77,14 @@ class Partsdata extends CI_Model
         return $query->result_array();
     }
 
+    // delete a part by id
     public function deletePartById($id)
     {
         $this->db->where('id', $id);
         $this->db->delete('partsdata');
     }
 
+    // get parts by file name
     public function getPartByFile($filename)
     {
         $this->db->select('*')->from('partsdata');
@@ -81,6 +93,7 @@ class Partsdata extends CI_Model
         return $query->result_array();
     }
 
+    // get parts by model and piece
     public function getParts($model, $piece)
     {
         $this->db->select('*')->from('partsdata');

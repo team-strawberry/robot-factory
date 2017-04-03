@@ -38,6 +38,6 @@ function assemble() {
         console.log(result);
         alert('successful ajax');
      }
-   });
+   });   
    
 }

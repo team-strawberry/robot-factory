@@ -5,7 +5,7 @@
         <tr>
             <th>ID</th>
             <th>Head</th>
-            <th>Body</th>
+            <th>Torso</th>
             <th>Legs</th>         
             
         </tr>
@@ -14,7 +14,7 @@
         <tr>
         <td>{id}</td>
         <td>{head}</td>        
-        <td>{body}</td>
+        <td>{torso}</td>
         <td>{legs}</td>
         </tr>
         {/transaction}
