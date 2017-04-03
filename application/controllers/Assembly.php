@@ -69,7 +69,7 @@ class Assembly extends Application
                 $this->partsdata->deletePartById($headId);
                 $this->partsdata->deletePartById($bodyId);
                 $this->partsdata->deletePartById($legsId);
-                $modelString = $data2 = array('seq' => $idNum, 'plant' => 'strawberry', 'model' => $head . ' ' . $body . ' ' . $legs, 'action' => 'Assembly', 'quantity' => 1, 'stamp' => date('Y-m-d H:i:s'));
+                $data2 = array('seq'=>$headId.' '.$bodyId.' '.$legsId, 'plant'=>'strawberry', 'model'=>$head.' '.$body.' '.$legs, 'action'=>'Assembly', 'quantity'=>1, 'stamp'=>date('Y-m-d H:i:s'));              
                 $this->robotsdata->updateHistory($data2);
                 // return to view
                 echo json_encode(array("error" => false));
