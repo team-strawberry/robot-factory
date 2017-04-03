@@ -56,4 +56,4 @@ $route['404_override'] = '';
 
 $route['translate_uri_dashes'] = FALSE;
 
-$route['parts/(:num)'] = 'parts/getone/$1';
+$route['parts/(.*)'] = 'parts/getSinglePage/$1';

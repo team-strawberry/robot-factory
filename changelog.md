@@ -60,9 +60,6 @@
 - Redesign and applied bootstrap (Jake)
 - Applied Allman code style (Jake)
 
-### *v.018* (Feb 11, 2017)
-- Added comments to all the history pages (Karan)
-
 ### *v.019* (Feb 11, 2017)
 - Reformatted code (Karan)
 
@@ -71,3 +68,32 @@
 
 ### *v.019* (Feb 11, 2017)
 - edited changelog (Michael)
+
+### *v.021* (March 21, 2017)
+- Add user roles (Jake)
+- Add database for parts page (Jake) 
+  - (Config - autoload, constants)
+  - (Models - Partsdata)
+  - (Views - _cell)
+
+### *v.022* (March 21, 2017)
+- Started on the Manage page (Karan/William)
+
+### *v.023* (April 1, 2017)
+- Add API key function (Jake)
+
+### *v.024* (April 1, 2017)
+- Added the reboot function (Karan)
+
+### *v.025* (April 1, 2017)
+- Created history page (Jake)
+- Added filters, navigation, order functions on history page (Jake)
+
+### *v.026* (April 1, 2017)
+- Added comments, reformatted code (Karan)
+
+### *v.027* (April 1, 2017)
+- Fixed assembly page, assemble function, sell function, history (Jake)
+
+### *v.028* (April 1, 2017)
+- Added recycle function, fix API key, fix reboot (Jake)

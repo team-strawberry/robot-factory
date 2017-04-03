@@ -11,49 +11,80 @@
  *
  * @author Jake
  */
-class Robotsdata extends CI_Model {
-
-    var $bots = array(
-        array('id' => '19',
-            'name' => 'robot A',
-            'fileName' => 'a.jpg'),
-        array('id' => '20',
-            'name' => 'robot B',
-            'fileName' => 'b.jpg'),
-        array('id' => '21',
-            'name' => 'robot C',
-            'fileName' => 'c.jpg'),
-        array('id' => '22',
-            'name' => 'robot M',
-            'fileName' => 'm.jpg'),
-        array('id' => '23',
-            'name' => 'robot R',
-            'fileName' => 'r.jpg'),
-        array('id' => '24',
-            'name' => 'robot W',
-            'fileName' => 'w.jpg')
-    );
+class Robotsdata extends CI_Model
+{
 
     // Constructor    
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
     // retrieve all of bots
-    public function getAllBots() {
+    public function getAllBots()
+    {
         return $this->bots;
     }
 
-    // retrieve a single bot
-    public function getBot($which) {
+    // get all robots
+    public function getAllBotsAsArray()
+    {
+        return $this->db->get('assembledbots')->result_array();
+    }
 
+    // retrieve a single bot
+    public function getBot($which)
+    {
         // iterate over the data until we find the one we want
-        foreach ($this->bots as $record) {
-            if ($record['id'] == $which) {
+        foreach ($this->db->get('assembledbots')->result_array() as $record)
+        {
+            if ($record['id'] == $which)
+            {
+
                 return $record;
             }
         }
         return null;
+    }
+
+    // get size of rows
+    function size()
+    {
+        $query = $this->db->get('assembledbots');
+        return $query->num_rows();
+    }
+
+    // insert robot data to db
+    public function createBot($data)
+    {
+        $this->db->insert('assembledbots', $data);
+    }
+
+    // Returns an ID number by adding 1 to the current number of rows.
+    public function getIdNum()
+    {
+        $botRowCount = $this->db->count_all('assembledbots');
+        $idNum = $botRowCount + 1;
+        return $idNum;
+    }
+
+    // update history
+    public function updateHistory($data2)
+    {
+        $this->db->insert('historydata', $data2);
+    }
+
+    // delete robot by id
+    public function deleteRobotById($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('assembledbots');
+    }
+
+    // for the reboot function
+    public function deleteAll()
+    {
+        $this->db->empty_table('assembledbots');
     }
 
 }

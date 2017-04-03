@@ -11,10 +11,12 @@
  *
  * @author Michael
  */
-class About extends Application {
+class About extends Application
+{
 
-    public function index() {
-        
+    public function index()
+    {
+
         // load a page for details
         $this->data['pagebody'] = 'aboutpage';
         $this->render();

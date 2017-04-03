@@ -12,7 +12,6 @@
 - Robot-factory   
 
 
-
 ###Group Members        
 
 - Jake Kim (C)
@@ -20,7 +19,6 @@
 - Michael Park
 - Nick Nelson
 - William Brown       
-
 
 
 ###Coding Conventions
@@ -46,5 +44,3 @@
 | Michael | About / History page |
 | Nick | Assembly page |
 | William | Home page / Navbar |
-
-strawberry.jlparry.com
