@@ -70,6 +70,7 @@ class Robotsdata extends CI_Model
         $this->db->insert('historydata', $data2);
     }
 
+    // for the reboot function
     public function deleteAll()
     {
         $this->db->empty_table('assembledbots');

@@ -108,6 +108,7 @@ class Historydata extends MY_Model
         return $query->result_array();
     }
 
+    // for the reboot function
     public function deleteAll()
     {
         $this->db->empty_table('historydata');
