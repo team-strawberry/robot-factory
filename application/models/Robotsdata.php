@@ -26,6 +26,7 @@ class Robotsdata extends CI_Model
         return $this->bots;
     }
 
+    // get all robots
     public function getAllBotsAsArray()
     {
         return $this->db->get('assembledbots')->result_array();
@@ -46,12 +47,14 @@ class Robotsdata extends CI_Model
         return null;
     }
 
+    // get size of rows
     function size()
     {
         $query = $this->db->get('assembledbots');
         return $query->num_rows();
     }
 
+    // insert robot data to db
     public function createBot($data)
     {
         $this->db->insert('assembledbots', $data);
@@ -65,9 +68,17 @@ class Robotsdata extends CI_Model
         return $idNum;
     }
 
+    // update history
     public function updateHistory($data2)
     {
         $this->db->insert('historydata', $data2);
+    }
+
+    // delete robot by id
+    public function deleteRobotById($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('assembledbots');
     }
 
     // for the reboot function

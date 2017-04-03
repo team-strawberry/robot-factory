@@ -83,7 +83,7 @@ class Manage extends Application
             // empty everything, start over
             $this->partsdata->deleteAll();
             $this->historydata->deleteAll();
-            //$this->robotsdata->deleteAll();
+            $this->robotsdata->deleteAll();
             $this->session->set_userdata('message', "Plant Rebooted.");
             echo 'Success';
         } else

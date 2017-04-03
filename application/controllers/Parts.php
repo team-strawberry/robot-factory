@@ -134,6 +134,14 @@ class Parts extends Application
 
         $json_parts = file_get_contents('https://umbrella.jlparry.com/work/mybuilds?key=' . $API_KEY);
 
+        if ($json_parts == NULL || empty($json_parts))
+        {
+            $this->data['pagebody'] = 'blockedpage';
+            $this->data['pagetitle'] = '<a class="text-danger">Please register first</a>';
+            $this->render();
+            return;
+        }
+
         // decode json
         $random_parts = json_decode($json_parts, true);
 
@@ -163,6 +171,14 @@ class Parts extends Application
 
         $json_parts = file_get_contents('https://umbrella.jlparry.com/work/buybox?key=' . $API_KEY);
 
+        if ($json_parts == NULL || empty($json_parts))
+        {
+            $this->data['pagebody'] = 'blockedpage';
+            $this->data['pagetitle'] = '<a class="text-danger">Please register first</a>';
+            $this->render();
+            return;
+        }
+
         // decode json
         $buy_parts = json_decode($json_parts, true);
         // create part array
@@ -176,10 +192,53 @@ class Parts extends Application
         redirect('/parts');
     }
 
+    // create part array 
+    private function createPartArray($array)
+    {
+        $temp_array = array();
+
+        var_dump($array);
+
+        if ($array == NULL || empty($array))
+        {
+            $this->data['pagebody'] = 'blockedpage';
+            $this->data['pagetitle'] = '<a class="text-danger">Please register first</a>';
+            $this->render();
+            return;
+        }
+
+        // make parts array
+        foreach ($array as $part)
+        {
+            $temp_array[] = array(
+                'id' => $part['id'],
+                'model' => $part['model'],
+                'piece' => $part['piece'],
+                'plant' => $part['plant'],
+                'stamp' => $part['stamp'],
+                'aquired_time' => date("Y-m-d H:i:s", time()),
+                'file_name' => $part['model'] . $part['piece'] . '.jpeg',
+                'href' => '/parts/' . $part['id']);
+        }
+
+        return $temp_array;
+    }
+
+    // make history
     private function createHistory($array, $action, $amount)
     {
         $temp_array = array();
 
+        //check the input is empty
+        if ($array == NULL || empty($array))
+        {
+            $this->data['pagebody'] = 'blockedpage';
+            $this->data['pagetitle'] = '<a class="text-danger">Please register first</a>';
+            $this->render();
+            return;
+        }
+
+        // count parts
         $num_of_parts = count($array);
 
         $sequence = '';
@@ -199,27 +258,6 @@ class Parts extends Application
             'seq' => $sequence,
             'stamp' => $part['stamp']
         );
-
-        return $temp_array;
-    }
-
-    // create part array 
-    private function createPartArray($array)
-    {
-        $temp_array = array();
-
-        foreach ($array as $part)
-        {
-            $temp_array[] = array(
-                'id' => $part['id'],
-                'model' => $part['model'],
-                'piece' => $part['piece'],
-                'plant' => $part['plant'],
-                'stamp' => $part['stamp'],
-                'aquired_time' => date("Y-m-d H:i:s", time()),
-                'file_name' => $part['model'] . $part['piece'] . '.jpeg',
-                'href' => '/parts/' . $part['id']);
-        }
 
         return $temp_array;
     }

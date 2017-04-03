@@ -35,7 +35,7 @@ class Sell extends Application
                 $temp_array[] = array(
                     'id' => $robot['id'],
                     'head' => $robot['head'],
-                    'body' => $robot['body'],
+                    'torso' => $robot['torso'],
                     'legs' => $robot['legs']);
             }
             $this->data['transaction'] = $temp_array;
@@ -55,6 +55,7 @@ class Sell extends Application
     public function page($num = 1, $order = NULL)
     {
 
+        // get sorted robot data
         $robots = $this->robotsdata->getAllBotsAsArray();
         $transactions = array();
 
@@ -91,28 +92,75 @@ class Sell extends Application
         return $this->parser->parse('sellnav', $parms, true);
     }
 
+    // sell robot
     public function sellBot()
     {
+        $API_KEY = $this->managedata->getKey();
+
+        // check key validation
+        if ($API_KEY == '000000')
+        {
+            $this->data['pagebody'] = 'blockedpage';
+            $this->data['pagetitle'] = '<a class="text-danger">Please register first</a>';
+            $this->render();
+            return;
+        }
+
         $this->data['pagetitle'] = 'Sell';
         $this->data['pagebody'] = 'sellpage';
         $id = $_POST["id"]; //415157
+
         $robots = $this->robotsdata->getBot($id);
+        var_dump($robots);
+
         $head = $robots['head'];
-        $body = $robots['body'];
+        $torso = $robots['torso'];
         $legs = $robots['legs'];
-        $response = file_get_contents("https://umbrella.jlparry.com/work/buymybot/$head/$body/$legs");
+
+        $response = file_get_contents("https://umbrella.jlparry.com/work/buymybot/$head/$torso/$legs?key=" . $API_KEY);
         $responseArray = explode(" ", $response);
 
+        // if page displays 'ok'
         if ($responseArray[0] == 'Ok')
         {
-            $this->managedata->updateKey($responseArray[1]);
-            $this->data['message'] = "<div>Successfully get the API key</div>";
+            $this->data['message'] = "<div>Successfully sold the robot</div>";
+            // delete sold robot from db
+            $this->robotsdata->deleteRobotById($id);
+            // add to history
+            $history_robot_to_save = $this->createHistory($robots, 'Sell', 100);
+            $this->historydata->insertPartsHistory($history_robot_to_save);
         } else
         {
+            // get message
             $this->data['message'] = "<div class='text-danger'>$response</div>";
         }
 
-        $this->render();
+        redirect('/sell');
+    }
+
+    // create history
+    private function createHistory($part, $action, $amount)
+    {
+        $temp_array = array();
+
+        $num_of_parts = count($part);
+
+        $sequence = '';
+        $models = '';
+        
+        $sequence .= $part['head'] . ' ' . $part['torso'] . ' ' . $part['legs'];
+        
+        $temp_array[] = array(
+            'action' => $action,
+            'amount' => $amount,
+            'quantity' => $num_of_parts,
+            'plant' => 'strawberry',
+            'model' => $sequence,
+            'seq' => $sequence,
+            'stamp' => date("Y-m-d H:i:s", time()),
+        );
+
+        return $temp_array;
     }
 
 }

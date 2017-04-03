@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS apikeydata;
 CREATE TABLE apikeydata (
-  `id` int(20) NOT NULL,
+  `id` int NOT NULL,
   `keyvalue` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS assembledbots;
 CREATE TABLE assembledbots (
   id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `head` varchar(20) NOT NULL,
-  `body` varchar(20) NOT NULL,
+  `torso` varchar(20) NOT NULL,
   `legs` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

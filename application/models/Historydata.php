@@ -43,6 +43,7 @@ class Historydata extends MY_Model
         $this->db->insert_batch('historydata', $history);
     }
 
+    // sort by date
     public function sortByDate($order)
     {
         $temp = '';
@@ -54,6 +55,7 @@ class Historydata extends MY_Model
             $temp = 'asc';
         }
 
+        // sort db
         $this->db->select('*');
         $this->db->from('historydata');
         $this->db->order_by('stamp', $temp);
@@ -61,6 +63,7 @@ class Historydata extends MY_Model
         return $query->result_array();
     }
 
+    // sort by model
     public function sortByModel($order)
     {
         $temp = '';
@@ -72,6 +75,7 @@ class Historydata extends MY_Model
             $temp = 'asc';
         }
 
+        // sort db
         $this->db->select('*');
         $this->db->from('historydata');
         $this->db->order_by('model', $temp);
@@ -79,9 +83,12 @@ class Historydata extends MY_Model
         return $query->result_array();
     }
 
+    // filter by model
     public function filterByModel($model)
     {
         $temp = '';
+        
+        // check model type
         switch ($model)
         {
             case 'modelA':
@@ -103,6 +110,8 @@ class Historydata extends MY_Model
                 $temp = '%w%';
                 break;
         }
+        
+        // get result query
         $sql = 'SELECT * FROM historydata WHERE model LIKE ?;';
         $query = $this->db->query($sql, $temp);
         return $query->result_array();
