@@ -2,11 +2,13 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends Application {
+class Welcome extends Application
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
-		$this->load->model('robotsdata');
+        $this->load->model('robotsdata');
     }
 
     /**
@@ -21,29 +23,32 @@ class Welcome extends Application {
      * map to /welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    public function index() {
+    public function index()
+    {
 
         $this->data['pagebody'] = 'homepage';
 
         // build the list of authors, to pass on to our view
         $source = $this->robotsdata->getAllBotsAsArray();
-		$partsOnHand = $this->partsdata->getAllParts();
-		$transactions = $this->historydata->getAllTransaction();
-		$bought = 0;
-		$sold = 0;
-		foreach ($transactions as $transaction)
+        $partsOnHand = $this->partsdata->getAllParts();
+        $transactions = $this->historydata->getAllTransaction();
+        $bought = 0;
+        $sold = 0;
+        foreach ($transactions as $transaction)
         {
-			if($transaction['action'] == "Sell" || $transaction['action'] == "sell"){
-				$sold+=$transaction['amount'];
-			}
-			if($transaction['action'] == "Buy" || $transaction['action'] == "buy"){
-				$bought+=$transaction['amount'];
-			}
-		}
+            if ($transaction['action'] == "Sell" || $transaction['action'] == "sell")
+            {
+                $sold+=$transaction['amount'];
+            }
+            if ($transaction['action'] == "Buy" || $transaction['action'] == "buy")
+            {
+                $bought+=$transaction['amount'];
+            }
+        }
         $info = array();
-       
+
         $info[] = array('numBots' => count($source), 'numParts' => count($partsOnHand), 'monSpent' => $bought, 'monEarned' => $sold);
-   
+
         $this->data['numbers'] = $info;
 
         $this->render();

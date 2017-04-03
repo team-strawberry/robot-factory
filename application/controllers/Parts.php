@@ -144,7 +144,7 @@ class Parts extends Application
         // insert parts to db
         $this->partsdata->insertParts($random_parts_to_save);
         $this->historydata->insertPartsHistory($history_parts_to_save);
-        
+
         redirect('/parts');
     }
 
@@ -186,13 +186,13 @@ class Parts extends Application
         $models = '';
         foreach ($array as $part)
         {
-            $sequence .= $part['id'] . ' ';            
+            $sequence .= $part['id'] . ' ';
             $models .= $part['model'] . $part['piece'] . ' ';
         }
-        
+
         $temp_array[] = array(
             'action' => $action,
-            'amount' => $amount,            
+            'amount' => $amount,
             'quantity' => $num_of_parts,
             'plant' => $part['plant'],
             'model' => $models,
