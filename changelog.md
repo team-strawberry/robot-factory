@@ -94,3 +94,6 @@
 
 ### *v.027* (April 1, 2017)
 - Fixed assembly page, assemble function, sell function, history (Jake)
+
+### *v.028* (April 1, 2017)
+- Added recycle function, fix API key, fix reboot (Jake)

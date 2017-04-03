@@ -57,8 +57,7 @@ class Manage extends Application
             $this->managedata->updateKey($responseArray[1]);
             //got the key
             $this->data['message'] = "<div>Successfully get the API key</div>";
-            $data = array('keyvalue' => $response);
-            $this->db->insert('apikeydata', $data);
+            
         } else
         {
             // didn't get the key
@@ -70,30 +69,41 @@ class Manage extends Application
 
     public function reboot()
     {
+        $this->data['pagetitle'] = 'Management';
+        $this->data['pagebody'] = 'managepage';
+        
+        $API_KEY = $this->managedata->getKey();
 
-        $apikey = $this->managedata->getKey();
-
+        if ($API_KEY == '000000')
+        {
+            $this->data['pagebody'] = 'blockedpage';
+            $this->data['pagetitle'] = '<a class="text-danger">Please register first</a>';
+            $this->render();
+            return;
+        }
+        
         // get the api kry
-        $response = file_get_contents("https://umbrella.jlparry.com/work/rebootme?key=$apikey");
+        $response = file_get_contents("https://umbrella.jlparry.com/work/rebootme?key=$API_KEY");
         $responseArray = explode(" ", $response);
 
         // if page displays 'ok'
         if ($responseArray[0] == 'Ok')
         {
             // empty everything, start over
+            $this->managedata->resetKey();
             $this->partsdata->deleteAll();
             $this->historydata->deleteAll();
             $this->robotsdata->deleteAll();
             $this->session->set_userdata('message', "Plant Rebooted.");
-            echo 'Success';
+            $this->data['message'] = "<div>Successfully rebooted</div>";
         } else
         {
             //error
             $this->session->set_userdata('error', $response);
-            echo 'Error';
+            $this->data['message'] = "<div class='text-danger'>$response</div>";
         }
-        // go back to the page you were already on
-        redirect('/manage');
+        
+        $this->render();
     }
 
 }

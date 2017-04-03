@@ -108,23 +108,21 @@ class Sell extends Application
 
         $this->data['pagetitle'] = 'Sell';
         $this->data['pagebody'] = 'sellpage';
-        $id = $_POST["id"]; //415157
+        $id = $_POST["id"];
 
         $robots = $this->robotsdata->getBot($id);
  
-
         $head = $robots['head'];
         $torso = $robots['torso'];
         $legs = $robots['legs'];
 
         $response = file_get_contents("https://umbrella.jlparry.com/work/buymybot/$head/$torso/$legs?key=" . $API_KEY);
-              var_dump($response);
-        
+
         $responseArray = explode(" ", $response);
-        // get moent earn from PRC
+        // get money earn from PRC
         $earned = $responseArray[1];
 
-        // if page displays 'ok'
+        // if returns 'ok'
         if ($responseArray[0] == 'Ok')
         {
             $this->data['message'] = "<div>Successfully sold the robot</div>";
@@ -139,7 +137,7 @@ class Sell extends Application
             $this->data['message'] = "<div class='text-danger'>$response</div>";
         }
 
-        //redirect('/sell');
+        redirect('/sell');
     }
 
     // create history
