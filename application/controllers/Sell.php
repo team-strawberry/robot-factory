@@ -111,14 +111,18 @@ class Sell extends Application
         $id = $_POST["id"]; //415157
 
         $robots = $this->robotsdata->getBot($id);
-        var_dump($robots);
+ 
 
         $head = $robots['head'];
         $torso = $robots['torso'];
         $legs = $robots['legs'];
 
         $response = file_get_contents("https://umbrella.jlparry.com/work/buymybot/$head/$torso/$legs?key=" . $API_KEY);
+              var_dump($response);
+        
         $responseArray = explode(" ", $response);
+        // get moent earn from PRC
+        $earned = $responseArray[1];
 
         // if page displays 'ok'
         if ($responseArray[0] == 'Ok')
@@ -127,7 +131,7 @@ class Sell extends Application
             // delete sold robot from db
             $this->robotsdata->deleteRobotById($id);
             // add to history
-            $history_robot_to_save = $this->createHistory($robots, 'Sell', 100);
+            $history_robot_to_save = $this->createHistory($robots, 'Sell', $earned);
             $this->historydata->insertPartsHistory($history_robot_to_save);
         } else
         {
@@ -135,7 +139,7 @@ class Sell extends Application
             $this->data['message'] = "<div class='text-danger'>$response</div>";
         }
 
-        redirect('/sell');
+        //redirect('/sell');
     }
 
     // create history
