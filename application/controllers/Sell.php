@@ -1,7 +1,9 @@
 <?php
+
 class Sell extends Application
 {
-	private $items_per_page = 20;
+
+    private $items_per_page = 20;
 
     // construct function
     function __construct()
@@ -14,7 +16,6 @@ class Sell extends Application
     public function index()
     {
         $this->page(1);
-		
     }
 
     // Show a single page of transactions
@@ -40,7 +41,7 @@ class Sell extends Application
             $this->data['transaction'] = $temp_array;
             $this->data['pagetitle'] = 'Sell';
             $this->data['pagebody'] = 'sellpage';
-			$this->data['message'] = '';
+            $this->data['message'] = '';
         } else
         {
             $this->data['pagetitle'] = 'Sell - Only Allow to Boss';
@@ -53,8 +54,8 @@ class Sell extends Application
     // Extract & handle a page of items, defaulting to the beginning    
     public function page($num = 1, $order = NULL)
     {
-       
-		$robots = $this->robotsdata->getAllBotsAsArray();
+
+        $robots = $this->robotsdata->getAllBotsAsArray();
         $transactions = array();
 
         $index = 0;
@@ -90,29 +91,30 @@ class Sell extends Application
         return $this->parser->parse('sellnav', $parms, true);
     }
 
-	public function sellBot()
-		{
-			$this->data['pagetitle'] = 'Sell';  
-			$this->data['pagebody'] = 'sellpage';
-			$id = $_POST["id"]; //415157
-			$robots = $this->robotsdata->getBot($id);
-			$head = $robots['head'];
-			$body = $robots['body'];
-			$legs = $robots['legs'];
-			$response = file_get_contents("https://umbrella.jlparry.com/work/buymybot/$head/$body/$legs");
-			$responseArray = explode(" ", $response);
+    public function sellBot()
+    {
+        $this->data['pagetitle'] = 'Sell';
+        $this->data['pagebody'] = 'sellpage';
+        $id = $_POST["id"]; //415157
+        $robots = $this->robotsdata->getBot($id);
+        $head = $robots['head'];
+        $body = $robots['body'];
+        $legs = $robots['legs'];
+        $response = file_get_contents("https://umbrella.jlparry.com/work/buymybot/$head/$body/$legs");
+        $responseArray = explode(" ", $response);
 
-			if ($responseArray[0] == 'Ok')
-			{
-				$this->managedata->updateKey($responseArray[1]);
-				$this->data['message'] = "<div>Successfully get the API key</div>";
-			} else
-			{
-				$this->data['message'] = "<div class='text-danger'>$response</div>";
-			}
-			
-			$this->render();
-	}
-	
+        if ($responseArray[0] == 'Ok')
+        {
+            $this->managedata->updateKey($responseArray[1]);
+            $this->data['message'] = "<div>Successfully get the API key</div>";
+        } else
+        {
+            $this->data['message'] = "<div class='text-danger'>$response</div>";
+        }
+
+        $this->render();
+    }
+
 }
+
 ?>

@@ -25,30 +25,32 @@ class Robotsdata extends CI_Model
     {
         return $this->bots;
     }
-	public function getAllBotsAsArray(){
-		return $this->db->get('assembledbots')->result_array();
-	}
+
+    public function getAllBotsAsArray()
+    {
+        return $this->db->get('assembledbots')->result_array();
+    }
 
     // retrieve a single bot
     public function getBot($which)
     {
         // iterate over the data until we find the one we want
-        foreach ($this->db->get('assembledbots')->result_array() as $record) {
-            if ($record['id'] == $which) {
+        foreach ($this->db->get('assembledbots')->result_array() as $record)
+        {
+            if ($record['id'] == $which)
+            {
 
                 return $record;
             }
         }
         return null;
     }
-    
-	function size()
-	{
-		$query = $this->db->get('assembledbots');
-		return $query->num_rows();
-	}
-	
-   
+
+    function size()
+    {
+        $query = $this->db->get('assembledbots');
+        return $query->num_rows();
+    }
 
     public function createBot($data)
     {
@@ -62,11 +64,11 @@ class Robotsdata extends CI_Model
         $idNum = $botRowCount + 1;
         return $idNum;
     }
-    
-    public function updateHistory($data2) {
-        $this->db->insert('historydata', $data2);       
+
+    public function updateHistory($data2)
+    {
+        $this->db->insert('historydata', $data2);
     }
-}
 
     public function deleteAll()
     {

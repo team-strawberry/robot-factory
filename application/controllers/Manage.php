@@ -23,19 +23,19 @@ class Manage extends Application
 
     public function index()
     {
-       // get user roles
+        // get user roles
         $user_role = $this->session->userdata('userrole');
 
         // only allow to worker
         if ($user_role == 'boss')
         {
-            $this->data['pagetitle'] = 'Management';            
+            $this->data['pagetitle'] = 'Management';
             $this->data['pagebody'] = 'managepage';
             $this->data['message'] = '';
         } else
         {
             $this->data['pagetitle'] = 'Management - Only Allow to Boss';
-            $this->data['pagebody'] = 'blockedpage';          
+            $this->data['pagebody'] = 'blockedpage';
         }
 
         $this->render();
@@ -78,14 +78,14 @@ class Manage extends Application
             $this->historydata->deleteAll();
             //$this->robotsdata->deleteAll();
             $this->session->set_userdata('message', "Plant Rebooted.");
-            echo 'Sucess';
+            echo 'Success';
         } else
         {
             //error
             $this->session->set_userdata('error', $response);
             echo 'Error';
         }
-        //redirect('/manage');
+        redirect('/manage');
     }
 
 }
